@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% set title = 'Vista Médico' %}
+{% block content %}
+<div class="grid-2">
+    <div>
+        {% if alumno %}
+        <div class="section-title">Alumno</div>
+        <div class="card">
+            <div><strong>Matrícula:</strong> {{ alumno['matricula'] }}</div>
+            <div><strong>Nombre(s):</strong> {{ alumno['nombres'] }}</div>
+            <div><strong>Apellidos:</strong> {{ alumno['apellido_paterno'] }} {{ alumno['apellido_materno'] }}</div>
+            <div><strong>Semestre:</strong> {{ alumno['semestre'] }} | <strong>Grupo:</strong> {{ alumno['grupo'] }}</div>
+        </div>
+        {% else %}
+        <div class="warn">No existe registro para esta matrícula.</div>
+        {% endif %}
+
+        <form method="post" class="register-form">
+            <div class="section-title">Datos Médicos</div>
+            <div class="row">
+                <label class="field half"><span>Tipo de Sangre</span><input name="tipo_sangre" class="underline" value="{{ medico['tipo_sangre'] if medico }}" /></label>
+                <label class="field half"><span>Alergias</span><input name="alergias" class="underline" value="{{ medico['alergias'] if medico }}" /></label>
+            </div>
+            <div class="row">
+                <label class="field half"><span>Padecimientos</span><input name="padecimientos" class="underline" value="{{ medico['padecimientos'] if medico }}" /></label>
+                <label class="field half"><span>Vacunas aplicadas</span><input name="vacunas_aplicadas" class="underline" value="{{ medico['vacunas_aplicadas'] if medico }}" /></label>
+            </div>
+            <label class="field"><span>Num Seguro Social</span><input name="num_seguro_social" class="underline" value="{{ medico['num_seguro_social'] if medico }}" /></label>
+            <div class="actions">
+                <button class="btn oval" type="submit">Guardar</button>
+                <a class="btn oval secondary" href="{{ url_for('acceso') }}">Regresar</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="photo-upload">
+        <div class="photo-box">
+            {% if alumno and alumno['foto_path'] %}
+            <img src="{{ alumno['foto_path'] }}" alt="Foto" class="photo" />
+            {% else %}
+            <div class="avatar-placeholder"></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

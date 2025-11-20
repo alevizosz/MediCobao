@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% set title = 'Vista Tutor' %}
+{% block content %}
+<div class="grid-2">
+    <div>
+        {% if alumno %}
+        <div class="section-title">Alumno</div>
+        <div class="card">
+            <div><strong>Matrícula:</strong> {{ alumno['matricula'] }}</div>
+            <div><strong>Nombre(s):</strong> {{ alumno['nombres'] }}</div>
+            <div><strong>Apellidos:</strong> {{ alumno['apellido_paterno'] }} {{ alumno['apellido_materno'] }}</div>
+            <div><strong>Semestre:</strong> {{ alumno['semestre'] }} | <strong>Grupo:</strong> {{ alumno['grupo'] }}</div>
+        </div>
+        {% else %}
+        <div class="warn">No existe registro para esta matrícula.</div>
+        {% endif %}
+
+        <form method="post" class="register-form">
+            <div class="section-title">Datos del Tutor</div>
+            <div class="row">
+                <label class="field half"><span>Nombre(s) tutor</span><input name="nombre_tutor" class="underline" value="{{ tutor['nombre_tutor'] if tutor }}" /></label>
+                <label class="field half"><span>Apellido Paterno</span><input name="ap_paterno_tutor" class="underline" value="{{ tutor['ap_paterno_tutor'] if tutor }}" /></label>
+                <label class="field half"><span>Apellido Materno</span><input name="ap_materno_tutor" class="underline" value="{{ tutor['ap_materno_tutor'] if tutor }}" /></label>
+            </div>
+            <div class="row">
+                <label class="field half"><span>Domicilio</span><input name="domicilio" class="underline" value="{{ tutor['domicilio'] if tutor }}" /></label>
+                <label class="field half"><span>Teléfono</span><input name="telefono" class="underline" value="{{ tutor['telefono'] if tutor }}" /></label>
+            </div>
+            <div class="actions">
+                <button class="btn oval" type="submit">Guardar</button>
+                <a class="btn oval secondary" href="{{ url_for('acceso') }}">Regresar</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="photo-upload">
+        <div class="photo-box">
+            {% if alumno and alumno['foto_path'] %}
+            <img src="{{ alumno['foto_path'] }}" alt="Foto" class="photo" />
+            {% else %}
+            <div class="avatar-placeholder"></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

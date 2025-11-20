@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% set title = 'Administrador' %}
+{% block content %}
+<div class="section-title">Alta, Baja, Modificar, Consultar</div>
+<form method="get" action="{{ url_for('admin') }}" class="form-grid">
+    <label class="field"><span>Matrícula</span><input name="q" value="{{ q }}" class="underline" /></label>
+    <div class="actions">
+        <button class="btn oval" type="submit">Consultar</button>
+        <a class="btn oval secondary" href="{{ url_for('home') }}">Inicio</a>
+    </div>
+    {% if record and record[0] %}
+    <div class="section-title">Resultado</div>
+    {% set alumno = record[0] %}
+    {% set medico = record[1] %}
+    {% set tutor = record[2] %}
+    <div class="card">
+        <div><strong>Alumno:</strong> {{ alumno['nombres'] }} {{ alumno['apellido_paterno'] }} {{ alumno['apellido_materno'] }}</div>
+        <div><strong>Semestre:</strong> {{ alumno['semestre'] }} | <strong>Grupo:</strong> {{ alumno['grupo'] }}</div>
+    </div>
+    <div class="actions">
+        <a class="btn oval" href="{{ url_for('tutor_view', matricula=alumno['matricula']) }}">Modificar Datos (Tutor)</a>
+        <a class="btn oval" href="{{ url_for('medico_view', matricula=alumno['matricula']) }}">Modificar Datos (Médico)</a>
+        <form method="post" action="{{ url_for('eliminar', matricula=alumno['matricula']) }}" style="display:inline">
+            <button class="btn oval danger" type="submit">Eliminar</button>
+        </form>
+    </div>
+    {% elif q %}
+    <div class="warn">No se encontró la matrícula {{ q }}.</div>
+    {% endif %}
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% set title = 'Acceso' %}
+{% block content %}
+<form method="post" class="form-grid">
+    <div class="section-title">Ingresa tu matrícula para acceder</div>
+    <label class="field">
+        <span>Matrícula</span>
+        <input type="text" name="matricula" required class="underline" />
+    </label>
+    <div class="role-select">
+        <label><input type="radio" name="rol" value="tutor" required /> Tutor</label>
+        <label><input type="radio" name="rol" value="medico" /> Médico/Doctor</label>
+        <label><input type="radio" name="rol" value="admin" /> Administrador</label>
+    </div>
+    <div class="actions">
+        <button class="btn oval" type="submit">Acceder</button>
+        <a class="btn oval secondary" href="{{ url_for('home') }}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

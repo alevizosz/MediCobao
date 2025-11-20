@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="48" viewBox="0 0 120 48">
+  <rect width="120" height="48" fill="#ffffff"/>
+  <g fill="#d42a2a">
+    <path d="M20 10c10 0 18 8 18 18s-8 18-18 18c-7 0-13-4-16-10 4 5 9 8 16 8 10 0 18-8 18-16S30 12 20 12c-7 0-12 3-16 8 3-6 9-10 16-10z"/>
+    <text x="45" y="30" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#d42a2a">COBAO</text>
+  </g>
+</svg>

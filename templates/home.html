@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% set title = 'Inicio' %}
+{% block content %}
+<div class="home-grid">
+    <div class="home-left">
+        <div class="home-slogan">Consulta y actualiza tu información de manera segura.</div>
+    </div>
+    <div class="home-actions">
+        <a class="btn oval" href="{{ url_for('acceso') }}">Iniciar Sesión</a>
+        <a class="btn oval secondary" href="{{ url_for('registro') }}">Registro</a>
+    </div>
+</div>
+{% endblock %}

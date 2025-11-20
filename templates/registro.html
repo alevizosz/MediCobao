@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% set title = 'Registro del Estudiante' %}
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="register-form">
+    <div class="form-header">Completa tus datos médicos y personales para generar tu perfil</div>
+    <div class="grid-2">
+        <div>
+            <label class="field"><span>Nombre(s)</span><input name="nombres" class="underline" required /></label>
+            <label class="field"><span>Apellido Paterno</span><input name="apellido_paterno" class="underline" required /></label>
+            <label class="field"><span>Apellido Materno</span><input name="apellido_materno" class="underline" required /></label>
+            <div class="row">
+                <label class="field half"><span>Matrícula</span><input name="matricula" class="underline" required /></label>
+                <label class="field half"><span>Semestre</span><input name="semestre" class="underline" /></label>
+                <label class="field half"><span>Grupo</span><input name="grupo" class="underline" /></label>
+            </div>
+
+            <div class="section-title">Datos Médicos</div>
+            <div class="row">
+                <label class="field half"><span>Tipo de Sangre</span><input name="tipo_sangre" class="underline" /></label>
+                <label class="field half"><span>Alergias</span><input name="alergias" class="underline" /></label>
+            </div>
+            <div class="row">
+                <label class="field half"><span>Padecimientos</span><input name="padecimientos" class="underline" /></label>
+                <label class="field half"><span>Vacunas aplicadas</span><input name="vacunas_aplicadas" class="underline" /></label>
+            </div>
+            <label class="field"><span>Num Seguro Social</span><input name="num_seguro_social" class="underline" /></label>
+
+            <div class="section-title">Datos del Tutor</div>
+            <div class="row">
+                <label class="field half"><span>Nombre(s) tutor</span><input name="nombre_tutor" class="underline" /></label>
+                <label class="field half"><span>Apellido Paterno</span><input name="ap_paterno_tutor" class="underline" /></label>
+                <label class="field half"><span>Apellido Materno</span><input name="ap_materno_tutor" class="underline" /></label>
+            </div>
+            <div class="row">
+                <label class="field half"><span>Domicilio</span><input name="domicilio" class="underline" /></label>
+                <label class="field half"><span>Teléfono</span><input name="telefono" class="underline" /></label>
+            </div>
+            <div class="actions">
+                <button type="submit" class="btn oval">Guardar Registro</button>
+                <a class="btn oval secondary" href="{{ url_for('home') }}">Cancelar</a>
+            </div>
+            <p class="note">La información médica es confidencial y sólo será utilizada por personal autorizado de la escuela.</p>
+        </div>
+
+        <div class="photo-upload">
+            <div class="photo-box">
+                <div class="avatar-placeholder"></div>
+            </div>
+            <label class="field"><span>Foto de perfil</span><input type="file" name="foto" accept="image/*" /></label>
+        </div>
+    </div>
+</form>
+{% endblock %}

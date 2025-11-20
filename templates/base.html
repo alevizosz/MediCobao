@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ app_name }} - {{ title if title else '' }}</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <div class="logo">
+                <img src="/static/img/cobao_logo.svg" alt="COBAO" />
+            </div>
+            <div class="app-title">Sistema de Registro Médico Escolar</div>
+        </header>
+        <main>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flash">
+                {% for message in messages %}
+                <div class="flash-item">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <div class="paper">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+        <footer class="footer">
+            <div>Contactanos: Plantel 32 Cuilapam</div>
+        </footer>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
