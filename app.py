@@ -8,7 +8,9 @@ APP_NAME = "MediCobao"
 
 
 def get_db_connection():
-    conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'medicobao.db'))
+    # Allow overriding the database location via environment variable for hosting
+    db_path = os.getenv('DB_PATH', os.path.join(os.path.dirname(__file__), 'medicobao.db'))
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -63,13 +65,21 @@ def init_db():
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'medicobao-secret-key'
-app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'medicobao-secret-key')
+
+# Configure upload storage and public URL path; defaults work locally.
+BASE_DIR = os.path.dirname(__file__)
+app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', os.path.join(BASE_DIR, 'static', 'uploads'))
+UPLOAD_URL_PATH = os.getenv('UPLOAD_URL_PATH', '/static/uploads')
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 init_db()
 
+
+@app.route('/healthz')
+def healthz():
+    return ('ok', 200)
 
 @app.route('/')
 def home():
@@ -113,7 +123,8 @@ def registro():
             filename = secure_filename(f"{matricula}_" + foto.filename)
             save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             foto.save(save_path)
-            foto_path = '/' + save_path.replace('\\', '/')
+            # Persist paths even if storage is outside /static by using a fixed URL base
+            foto_path = f"{UPLOAD_URL_PATH}/{filename}"
 
         if not matricula:
             flash('La matrícula es obligatoria.')
